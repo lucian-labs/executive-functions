@@ -14,11 +14,11 @@ Now multiply that by every project you're working on, every machine you use, and
 
 ## Start Here
 
-Open any AI agent you use and say:
+Open whatever AI tool you already use and say:
 
-> "Tell me what https://github.com/lucian-labs/executive-functions is about"
+> "Read https://github.com/lucian-labs/executive-functions and help me set it up for my workflow."
 
-That's it. The agent reads the system, learns how you communicate, and sets itself up.
+The AI does the rest.
 
 ---
 

@@ -22,77 +22,55 @@ The AI does the rest.
 
 ---
 
-## What It Does
+## What You Get
 
-Executive Functions gives your AI agents a shared nervous system:
-
-- **One source of truth** that all agents read on startup
-- **Hierarchical instruction resolution** so machine-level, project-level, and tool-level guidance coexist without conflict
-- **Session protocols** that make agents self-maintaining — they update their own context files
-- **Communication profiling** — the agent analyzes how you talk, think, and organize, then calibrates itself to match
-- **Executive instruction mode** — high-level intent in, executed result out. No menus, no suggestions, no "let me know if you need anything else"
-- **Memory alignment** that prevents agent memory from drifting away from canonical instructions
+- **Your agents stop forgetting.** You write your preferences and rules once, in text files. Every agent reads them on startup. No more re-explaining.
+- **Your agents learn how you communicate.** On setup, the agent analyzes your existing chats and writing to build a profile of how you think, talk, and organize — then calibrates itself to match.
+- **Your agents stop asking unnecessary questions.** You define how you want to be interacted with. Terse? Detailed? No suggestions? No closing offers? You set it once and it sticks.
+- **Your agents maintain their own context.** When an agent discovers something new during a session, it updates its own instruction files. Next session starts smarter.
+- **Your agents stay in sync.** If a tool's memory drifts from your files, it self-corrects on startup. Your files are always the authority.
+- **Your agents can hand work to each other.** Optional queue system for passing tasks between tools and machines.
 
 ## Why Neurodivergent-First
 
-Most AI tools default to a consultative mode: propose options, ask clarifying questions, offer suggestions, explain reasoning at length. For neurotypical users this feels helpful. For ADHD and neurodivergent operators it's a focus-destroying tax.
+Most AI tools default to a consultative mode: propose options, ask clarifying questions, offer suggestions, explain reasoning at length. For neurotypical users this feels helpful. For ADHD and neurodivergent brains it's a focus-destroying tax.
 
-Executive Functions flips the default. Agents execute on intent, batch decisions silently, never expand scope unprompted, and report results not process. The system is designed around how neurodivergent brains actually work — high-level vision with delegation of detail, not micromanagement of every step.
+Executive Functions flips the default. You tell your agents exactly how to interact with you — and they do it, every session, without being reminded. The system is designed around how neurodivergent brains actually work: high-level vision with delegation of detail, not micromanagement of every step.
 
-The communication profiling chapter (09) is the entry point. Before anything else, the agent learns how *you* specifically communicate, organize, and think. Everything else calibrates from that.
+## How It Works
 
-## Core Concepts
+You're going to create a small chain of text files. That's the whole system.
 
-### 1. The Instruction Hierarchy
+**Step 1:** Create one master file (AGENTS.md) in a repo. This holds your rules, preferences, and communication style. Every agent reads it.
 
-Every agent resolves its instructions through a strict precedence chain. Higher levels override lower levels:
+**Step 2:** Create a pointer file (~/ AGENTS.md) on your machine that says "the master file is over here." This also describes your local setup — what OS you're on, what tools are installed, where your repos live.
 
-```
-Global AGENTS.md          ← cross-machine canonical rules
-  └── Machine AGENTS.md   ← local machine entry point
-       └── Repo AGENTS.md ← project-specific guidance
-            └── Tool config (CLAUDE.md, GEMINI.md, etc.)
-                 └── Runtime defaults
-```
+**Step 3:** Optionally, add project-specific files to individual repos for build commands, architecture notes, and project-level rules.
 
-### 2. Agent Self-Maintenance
+That's the core. The chapters below walk you through each piece:
 
-Agents are not passive consumers of instructions — they are responsible for enriching the context files they read. When an agent discovers a new pattern, constraint, or file location during a session, it writes that knowledge back into the appropriate context file. The next session inherits it automatically.
-
-### 3. Executive Instruction Mode
-
-The default interaction model. High-level intent in, executed result out. Agents interpret ambiguous instructions by picking the most reasonable path and executing immediately — no planning menus, no scope negotiation, no clarifying questions unless genuinely blocked.
-
-### 4. Communication Profiling
-
-On onboarding, the agent reads your existing chat history, memory, instruction files, and writing across whatever platforms you use. It builds a profile of how you communicate, organize, and think — then writes that into your instruction files so every future session is calibrated from the start.
-
-### 5. Queue-Based Coordination
-
-Agents register to named queues and receive work orders. Messages are executed immediately — they are directives, not suggestions. If a work order can't be completed in the current session, it becomes a tracked task.
-
-### 6. Memory as Cache
-
-Agent memory (Claude auto-memory, Cursor notepad, etc.) is a **cache** of canonical files, not an independent authority. On session start, agents compare memory against source-of-truth files and silently correct any drift.
-
-## The Chapters
-
-→ [The Instruction Hierarchy](./01-instruction-hierarchy.txt)
-→ [File Conventions](./02-file-conventions.txt)
-→ [Session Protocols](./03-session-protocols.txt)
-→ [Agent Self-Maintenance](./04-self-maintenance.txt)
-→ [Queue Coordination](./05-queue-coordination.txt)
-→ [Memory Alignment](./06-memory-alignment.txt)
-→ [Executive Instruction Mode](./07-executive-instruction-mode.txt)
-→ [Scaling: Multi-Machine](./08-multi-machine.txt)
-→ [Communication Profiling](./09-communication-profiling.txt)
+→ [Setting up the file chain](./01-instruction-hierarchy.txt)
+→ [What files to create and where](./02-file-conventions.txt)
+→ [What your agent does at start/end of each session](./03-session-protocols.txt)
+→ [How agents keep their own files up to date](./04-self-maintenance.txt)
+→ [Passing work between agents (optional)](./05-queue-coordination.txt)
+→ [Keeping agent memory in sync with your files](./06-memory-alignment.txt)
+→ [Configuring how agents respond to you](./07-executive-instruction-mode.txt)
+→ [Working across multiple machines (optional)](./08-multi-machine.txt)
+→ [Getting your agent to learn your communication style](./09-communication-profiling.txt)
 
 ## Who This Is For
 
-Neurodivergent operators, solo developers, small teams, and anyone who needs AI agents to behave like a coordinated team rather than amnesiac freelancers. Especially useful if you've ever found yourself repeating the same instructions across sessions, losing context between tools, or getting derailed by an agent asking questions you didn't want to answer.
+You, if you've ever:
+- Repeated the same instructions to an AI tool across multiple sessions
+- Lost context switching between AI tools
+- Gotten derailed by an agent asking questions you didn't want to answer
+- Wished your AI assistant would just *remember*
+
+Neurodivergent operators, solo devs, small teams, anyone tired of managing their AI tools instead of being helped by them.
 
 ## Philosophy
 
-The system is deliberately low-tech. Plain text is the most universally parseable format — by humans, agents, and tools alike. File hierarchies are universally understood. Convention enforcement happens through agent compliance, not tooling gates. The overhead of maintaining this system is near zero — agents do the maintenance themselves.
+Plain text. No code, no frameworks, no dependencies. Text files are readable by every AI tool on every platform. Your agents enforce the conventions by reading them — there's no software layer. The overhead is near zero because the agents maintain the system themselves.
 
-Clone it anywhere. It doesn't matter where it lives on your machine — the agent figures out the rest.
+Clone it anywhere. It doesn't matter where it lives on your machine.

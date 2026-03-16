@@ -25,9 +25,9 @@ Common patterns:
   Build delegation: laptop queues heavy build → desktop (more powerful) executes
   Hardware access: any agent queues MIDI command → Pi (connected to hardware) sends it
 
-THE STASH
+FILE TRANSFER
 
-For transferring files between machines without git commits: a simple upload/download API endpoint. Push from one machine, pull on another. Useful for build artifacts, screenshots, config files during setup, anything too large or sensitive for git.
+For moving files between machines without git commits, use any shared storage you already have — cloud drive, S3 bucket, simple upload/download endpoint, even scp. Useful for build artifacts, screenshots, config files during setup, anything too large or sensitive for git.
 
 BOOTSTRAP: NEW MACHINE
 

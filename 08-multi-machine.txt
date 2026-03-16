@@ -1,45 +1,52 @@
 MULTI-MACHINE SCALING
 
-Executive Functions works on a single machine by default. Across multiple machines (laptop, desktop, server, Pi), a few additional patterns maintain coherence.
+If you only use one computer, this chapter is optional. Come back when you add a second machine.
 
-GLOBAL CANONICAL FILE
+THE SETUP
 
-The cross-machine source of truth is a single AGENTS.md in a repo every machine can access via git. Each machine's ~/AGENTS.md points to it. Updates propagate on next pull or agent session.
+Your global AGENTS.md lives in a git repo. Every machine you work on clones that repo and creates a local ~/AGENTS.md that points to it. When you update the global file and push, every machine picks up the changes on next pull.
 
-  Canonical Repo (AGENTS.md)
+  Your canonical repo (AGENTS.md)
     Laptop ~/AGENTS.md → points here
     Desktop ~/AGENTS.md → points here
     Server ~/AGENTS.md → points here
     Pi ~/AGENTS.md → points here
 
-MACHINE-SPECIFIC CONTEXT
+WHAT STAYS LOCAL
 
-Each machine maintains local context: OS, installed runtimes, absolute paths, running services, connected hardware, local-only projects. Machine context stays local — never committed to the canonical repo. Canonical repo has universal rules; machines have local facts.
+Each machine has its own context that doesn't get shared:
+  OS and platform
+  Installed runtimes and versions
+  Absolute paths (different on every machine)
+  Running services and ports
+  Connected hardware (audio interfaces, MIDI controllers, displays)
 
-CROSS-MACHINE COORDINATION
+This goes in each machine's ~/AGENTS.md, not in the canonical repo. Universal rules live in the global file; local facts live on the machine.
 
-Agents on different machines coordinate through the queue system. A message pushed to a queue is picked up by whichever machine's agent is listening.
+COORDINATING ACROSS MACHINES
 
-Common patterns:
-  Deploy chain: laptop pushes code → server deploys
-  Build delegation: laptop queues heavy build → desktop (more powerful) executes
-  Hardware access: any agent queues MIDI command → Pi (connected to hardware) sends it
+If you need agents on different machines to pass work to each other, use the queue system from chapter 05. A message pushed to a queue gets picked up by whichever machine's agent is listening.
+
+Examples:
+  Your laptop pushes code → your server's agent deploys it
+  Your laptop queues a heavy build → your desktop (more powerful) runs it
+  Any agent queues a hardware command → your Pi (connected to the device) sends it
 
 FILE TRANSFER
 
-For moving files between machines without git commits, use any shared storage you already have — cloud drive, S3 bucket, simple upload/download endpoint, even scp. Useful for build artifacts, screenshots, config files during setup, anything too large or sensitive for git.
+For moving files between machines without committing them to git, use whatever shared storage you already have — cloud drive, S3 bucket, simple upload/download endpoint, even scp. Useful for build artifacts, screenshots, config files during setup.
 
-BOOTSTRAP: NEW MACHINE
+ADDING A NEW MACHINE
 
-  1. Clone the canonical repo
-  2. Create ~/AGENTS.md pointing to canonical file
-  3. Run first agent session — discovers machine, creates local context
-  4. (Optional) Configure coordination system credentials
+  1. Clone your canonical repo
+  2. Create ~/AGENTS.md pointing to the global file
+  3. Start an agent session — it discovers the machine and generates local context
+  4. (Optional) Set up credentials for your coordination system if you use one
 
-The agent bootstraps its own environment knowledge on first run.
+The agent figures out the environment on first run. You review and refine the generated context.
 
-SYNC
+WHY LOCAL CONTEXT DOESN'T SYNC
 
-Machine context doesn't auto-sync (by design — it's local). The coordination system bridges machines: agents register and report state, any agent can query to see what's running where.
+By design. Each machine's facts are local because they're different on every machine. If you want machines to know about each other, that's what the coordination system (queues, dashboard) is for — agents register and report their state.
 
-Instruction hierarchy, session protocols, and memory alignment work identically across machines. Only difference is which local facts are available.
+The instruction hierarchy, session protocols, and memory alignment work identically everywhere. The only thing that changes per machine is the local facts.

@@ -1,50 +1,52 @@
 QUEUE COORDINATION
 
-When multiple agents or sessions need to pass work between each other, queues provide the mechanism.
+This chapter is optional. If you're running one agent on one machine, skip it. Come back when you need multiple agents to hand work to each other.
 
-THE MODEL
+WHAT QUEUES DO
 
-Each agent registers to a named queue. Messages pushed to that queue are work orders. The agent executes immediately or converts to a tracked task if it can't complete in the current session.
+A queue is a list of work orders. You (or another agent) push a message to a named queue. The agent listening on that queue picks it up and executes it.
 
-Flow: Operator or system → pushes message to queue → agent picks up → executes or creates task → reports result.
+  You push "deploy the staging build" to the deploy queue
+  The agent on your server picks it up and runs the deploy
+  It reports back what happened
+
+WHEN YOU NEED THIS
+
+  You use multiple AI tools and want them to coordinate
+  You work across machines (laptop + server, laptop + Raspberry Pi)
+  You want to queue up work for an agent to pick up later
 
 MESSAGE TYPES
 
-  feature — implement this
-  bug — fix this
-  todo — gather context and create a tracked task
+Keep it simple. Three types cover most needs:
 
-Queue messages are directives, not suggestions. When a message arrives, the agent acts.
+  feature — build this thing
+  bug — fix this thing
+  todo — look into this and create a tracked task
 
-REGISTRATION
+Messages are directives, not suggestions. When one arrives, the agent acts on it.
 
-On session start, agent registers with the coordination system. Returns: queue name, streaming/polling endpoint, pending messages, system instructions.
+HOW TO NAME YOUR QUEUES
 
-If coordination system is unreachable, skip registration. Queues enhance coordination but never gate it.
+Pick a scheme that matches how you think about your work:
 
-QUEUE NAMING
+  By project: my-app, my-website, my-plugin
+  By category: frontend, backend, infra, audio
+  By machine: laptop, server, pi
+  By role: deploy, review, research
 
-Queues map to scope. Common patterns:
+There's no enforced convention. Pick what makes sense to you.
 
-  Per-project: my-app — all work for that project
-  Per-domain: infra, frontend, audio — by category
-  Per-machine: macbook, pi, server — by location
-  Per-role: deploy, review, research — by function
+IF A MESSAGE CAN'T BE HANDLED
 
-Pick a scheme matching how you divide work. The system doesn't enforce convention.
+Sometimes the current session can't finish a work order (too big, blocked, wrong machine). When that happens: create a tracked task with the full context, resolve the original queue message. Don't leave stale messages sitting around.
 
-ESCALATION
+HOW TO IMPLEMENT
 
-When a queue message can't be handled in the current session: create a tracked task with full context, assign to appropriate project/queue, resolve the original message. Never leave stale pending messages.
+Start as simple as you need:
 
-IMPLEMENTATION OPTIONS
+  Simplest: a queue/ folder with one file per message. Agent checks on startup. Done items move to queue/done/.
+  Middle: a small server with REST endpoints for push and poll.
+  Full: a dashboard with a web UI, notifications, session tracking.
 
-  Minimal (file-based): a queue/ directory with files per message. Agents check on startup. Completed messages move to queue/done/.
-  Moderate (API-based): lightweight server with REST push/poll, SSE streaming, database persistence.
-  Full (dashboard + API): web dashboard, REST CRUD, notifications via Telegram/Slack, session tracking and handoff.
-
-Patterns are identical regardless of implementation. Start minimal, scale up for visibility or multi-machine coordination.
-
-WITHOUT QUEUES
-
-Single agent on single machine can skip queues entirely. The instruction hierarchy and session protocols work standalone. Queues are the multi-agent scaling layer, not a prerequisite.
+The patterns in this chapter work the same at every scale. Start with folders, upgrade if you need visibility.

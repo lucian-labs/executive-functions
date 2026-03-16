@@ -1,35 +1,47 @@
 INSTRUCTION HIERARCHY
 
-Every agent resolves behavior through a strict precedence chain. Higher levels override lower:
+Your agents need to know where to find their instructions — and what to do when two files disagree.
 
-  1. Global AGENTS.md — cross-machine canonical rules
-  2. Machine AGENTS.md — per-machine entry point (~/AGENTS.md)
-  3. Repo AGENTS.md — project-specific guidance
-  4. Tool config — CLAUDE.md, GEMINI.md, copilot-instructions.md, .cursor/rules/
-  5. Runtime defaults — whatever the tool ships with
+You're going to create a chain of text files. Each level overrides the one below it:
 
-If two sources conflict, the lower-numbered source wins. Always.
+  1. Your global AGENTS.md — lives in one repo, applies everywhere
+  2. Your machine AGENTS.md — lives at ~/, describes this specific computer
+  3. Each repo's AGENTS.md — project-specific rules
+  4. Tool configs — CLAUDE.md, GEMINI.md, .cursor/rules/, copilot-instructions.md
+  5. The tool's built-in defaults
 
-GLOBAL AGENTS.md
+If two files say different things, the higher-numbered file loses. Your global file always wins.
 
-The root file. Lives in a designated canonical repo. Contains: working rules, interaction style, commit conventions, session protocols, coordination infrastructure links, product direction. Every agent on every machine reads this first. It is the constitution.
+YOUR GLOBAL FILE
 
-Typical sections: Mission, Global Working Rules, Interaction Style, Session Start Checklist, Session End Protocol, Coordination API, Product Direction.
+Pick one repo to hold your master instructions. Create an AGENTS.md there. This is where you put:
 
-MACHINE ENTRY POINT
+  How you want agents to behave (tone, verbosity, interaction style)
+  Rules that apply to every project (commit conventions, formatting, etc.)
+  Session start/end checklists
+  Links to any coordination tools you use (optional)
 
-~/AGENTS.md on each machine. Points to the global canonical file. Describes the local machine: OS, paths, installed tools, running services, hardware. Lists agent config locations. Defines bootstrap order.
+Every agent on every machine reads this file first. Think of it as your constitution.
 
-This file is a map, not a rulebook. It contains no rules or conventions — those live in the global file.
+YOUR MACHINE FILE
 
-REPO-LEVEL GUIDANCE
+Create ~/AGENTS.md on each machine you work on. This file points to your global file and describes the local environment:
 
-Each project can have its own AGENTS.md for project-specific rules: build commands, test patterns, architecture constraints, deploy procedures. Scoped to that repo only.
+  What OS and shell you're running
+  Where your repos live
+  What tools and runtimes are installed
+  What services are running locally
 
-TOOL-SPECIFIC CONFIG
+This is a map, not a rulebook. Don't put rules here — those go in the global file.
 
-Bottom of the hierarchy. CLAUDE.md for Claude Code, GEMINI.md for Gemini, .github/copilot-instructions.md for Copilot, .cursor/rules/*.mdc for Cursor. Handle tool-specific quirks. Subordinate to everything above.
+YOUR PROJECT FILES
 
-DISCOVERY CONTRACT
+Each repo can have its own AGENTS.md for things that only matter in that project: build commands, test patterns, deploy steps, architecture notes.
 
-Each repo includes agents.txt at root — a single line pointing to the entry file for that repo. If the repo has its own AGENTS.md, agents.txt contains "AGENTS.md". If not, it points to the global file. This lets any agent find its way into the hierarchy from any starting point.
+TOOL CONFIGS
+
+CLAUDE.md, GEMINI.md, .cursor/rules/*.mdc, .github/copilot-instructions.md — these handle quirks specific to one tool. They sit at the bottom of the chain and yield to everything above.
+
+HOW AGENTS FIND THE CHAIN
+
+Add an agents.txt file to each repo root. One line: the path to that repo's entry file. If the repo has its own AGENTS.md, agents.txt says "AGENTS.md". If not, it points to your global file. Any agent can follow this to find the full chain.

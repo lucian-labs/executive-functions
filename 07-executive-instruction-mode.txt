@@ -1,42 +1,41 @@
 EXECUTIVE INSTRUCTION MODE
 
-The default interaction model. Defines how agents interpret and respond to instructions.
+This is about how your agents respond to you. By default, most AI tools are annoyingly consultative — they ask questions, propose options, explain their reasoning, and end every message with "let me know if you need anything else." Executive instruction mode turns that off.
 
-THE PRINCIPLE
+THE DEFAULT YOU'RE REPLACING
 
-The operator gives wide, high-level instructions. Agents execute immediately without clarification, planning menus, or scope negotiation.
+Out of the box, AI agents:
+  Ask clarifying questions before doing anything
+  Offer multiple approaches for you to choose from
+  Explain their reasoning step by step
+  Suggest related improvements you didn't ask for
+  End with "would you like me to also..."
 
-IN PRACTICE
+For some people this is fine. For others — especially if you have ADHD or are neurodivergent — it's actively harmful. Every unsolicited question is a focus interrupt. Every suggestion menu is cognitive load dumped back onto you. You hired the assistant to carry the weight, not hand it back.
 
-  Interpret intent, not just words. "Fix the auth flow" means investigate, identify the issue, fix it. If multiple issues, fix the most impactful and report.
+HOW TO SET IT UP
 
-  Report results, not process. Say what shipped: "Fixed token refresh — users were getting logged out after 15 minutes because refresh endpoint returned 401 on valid tokens." Not a debugging narrative.
+Add an interaction style section to your global AGENTS.md. Here's a starting point — adjust to fit how you actually want to work:
 
-  Batch decisions silently. During execution, make dozens of small decisions (naming, file placement, error handling). Don't surface them. Escalate only irreversible or high-stakes decisions.
+  Interpret my intent, not just my words. If I say "fix the auth flow," investigate and fix it. Don't ask me which part.
+  Report what you did, not how you got there. "Fixed the token refresh bug" — not a five-paragraph debugging narrative.
+  Make small decisions silently. Naming, file placement, import order — just pick something reasonable.
+  No suggestion menus. Don't offer me options I didn't ask for.
+  No closing offers. Don't end with "let me know if you need anything else."
+  No scope expansion. Don't mention related improvements or follow-on tasks unless I ask.
+  One thread at a time.
 
-  No suggestion menus. Never offer "do you want X? Should I also Y? Would you like me to Z?" Pick the most reasonable path and execute. Suggestion menus transfer cognitive load back to the operator.
+WHEN THE AGENT SHOULD PAUSE
 
-  No closing offers. Never end with "Let me know if you'd like anything else." Just stop.
+There are still times an agent should check with you:
+  Your instruction is genuinely ambiguous and both interpretations have big consequences
+  The action is irreversible (deleting data, force-pushing, modifying production)
+  The agent is stuck and can't make progress without your input
 
-  No scope expansion. Don't mention related improvements, adjacent ideas, or follow-on tasks unless asked. One thread at a time.
+In those cases: one clear question, get the answer, keep going. Not a conversation.
 
-WHY THIS MODE EXISTS
+MAKING IT YOUR OWN
 
-Most AI agents default to collaborative/consultative: propose, seek approval, offer alternatives, explain at length. This is harmful for experienced operators who already know what they want, lose focus when presented with unsolicited options, need agents to carry cognitive load not add to it, and value speed over explanation thoroughness.
+Executive instruction mode is a starting point. Maybe you want more explanation. Maybe you want less. Maybe you want terse output for code tasks and detailed output for research. The point is: you define it in a file, and every agent reads it. You stop having to correct the same habits session after session.
 
-Especially critical for neurodivergent operators (ADHD, autism-spectrum) where unsolicited suggestions and clarifying questions derail focus.
-
-CONFIGURING IT
-
-Add to your global AGENTS.md, interaction style section. Specify: no suggestion menus, no closing offers, no scope expansion, no check-ins mid-task unless blocked or irreversible, start/execute/finish, report result not process.
-
-Adjust specifics to your preferences. This is a starting point, not a mandate.
-
-WHEN TO BREAK THE MODE
-
-Legitimate reasons to pause and check:
-  The instruction is genuinely ambiguous AND both interpretations have significant consequences.
-  The action is irreversible (deleting data, force-pushing, modifying production).
-  The agent is blocked and cannot progress without input.
-
-Ask one clear question, get the answer, continue. Don't turn it into a conversation.
+The communication profiling chapter (09) takes this further — your agent can analyze how you actually communicate and generate this section for you.

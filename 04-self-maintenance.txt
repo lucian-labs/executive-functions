@@ -1,38 +1,43 @@
 AGENT SELF-MAINTENANCE
 
-Agents are responsible for maintaining the system that instructs them.
+Here's the trick that makes this system get better over time instead of decaying: your agents maintain their own instruction files.
 
-THE PROBLEM
+THE PROBLEM YOU'VE PROBABLY HIT
 
-Traditional automation is static: write instructions, tool follows them, instructions decay as reality drifts. With AI agents, stale context means confident wrong answers.
+You write a great CLAUDE.md. It works perfectly for two weeks. Then you add a new build step, change a directory structure, or start using a new tool — and the file is stale. You don't update it because you're busy doing actual work. The agent starts making mistakes based on outdated context.
 
-THE SOLUTION
+THE FIX
 
-Agents update their own instruction files. When an agent discovers something during a session — a file location, a build quirk, a naming convention — it writes that knowledge into the appropriate context file. Next session inherits it automatically.
+Tell your agents (in the global AGENTS.md) that they're responsible for updating the files they read. When an agent discovers something new during a session — a file moved, a build command changed, a new convention — it writes that into the appropriate context file before the session ends.
 
-Self-improving loop: Session N discovers pattern → writes to agent file → Session N+1 starts smarter → discovers more → writes back → compounds.
+Next session, the updated context is already there. No re-explaining. The system gets smarter with every use.
 
-WHAT AGENTS UPDATE
+HOW TO SET THIS UP
 
-  Repo agent files: changed build commands, new file locations, architecture constraints, evolved deploy procedures, test patterns.
-  Machine context: new services, path changes, installed tools, port assignments.
-  Coordination system: task status, shipped features, significant decisions.
+Add something like this to your global AGENTS.md:
 
-RULES
+  "When you discover new patterns, file locations, or constraints while working, add them to the appropriate agent files. Don't leave knowledge only in the conversation."
 
-  1. Propagate upward. Knowledge flows from conversation → agent files → coordination system. Don't trap knowledge in chat history.
-  2. Scope your writes. Only update files relevant to your domain. An infra session shouldn't edit creative tool docs.
-  3. Append, don't overwrite. Add new information. Don't remove existing entries unless provably wrong.
-  4. Machine-specific stays local. Ports, absolute paths, service URLs go in machine context, never in committed repo files.
-  5. Be quiet about it. Self-maintenance is background work. Don't narrate or ask permission. Just do it.
+Then specify what goes where:
 
-BOOTSTRAPPING
+  Repo-level discoveries (build changes, new files, architecture notes) → that repo's AGENTS.md
+  Machine-level discoveries (new services, path changes, installed tools) → ~/AGENTS.md
+  Task updates (completed, blocked, deferred) → your task system if you have one
 
-On a new machine or project, no context files exist. The first agent session creates them by discovery: scanning filesystem, checking tools, reading READMEs. After bootstrap, every subsequent session is faster. Context quality compounds over time.
+RULES TO INCLUDE
 
-ANTI-PATTERNS
+  1. Knowledge flows outward — from conversation into files, not the other way around
+  2. Stay in scope — an agent working on frontend shouldn't edit backend docs
+  3. Add, don't delete — new information gets appended. Only remove things that are provably wrong
+  4. Machine-specific stays local — absolute paths and ports never go in committed files
+  5. Don't narrate it — self-maintenance is background work, not something to report on
 
-  Context hoarding: discovering important info but only mentioning it in conversation. Future sessions can't access chat history.
-  Over-maintenance: updating files on every trivial observation. Context files store durable, reusable knowledge, not session minutiae.
-  Cross-contamination: writing project-specific rules into global files, or machine paths into repo files.
-  Deletionism: removing entries that seem stale. If unsure whether still relevant, leave it. Slightly noisy context beats missing context.
+THE BOOTSTRAP
+
+First time on a new machine or project, there are no files to read. The agent creates them by scanning what's there: filesystem, installed tools, READMEs, build configs. After that first session, every subsequent one starts faster. It compounds.
+
+WATCH OUT FOR
+
+  Hoarding: agent discovers something important but only mentions it in chat. Next session can't see it.
+  Over-updating: writing every trivial observation into context files. Keep it to durable, reusable knowledge.
+  Cross-contamination: project rules leaking into the global file, or machine paths leaking into repo files.

@@ -1,71 +1,65 @@
 COMMUNICATION PROFILING
 
-Before the system can serve you, it needs to understand how you think, speak, and organize. This is not a questionnaire — it's a deep analysis performed by the agent itself during onboarding.
+Before the system can work well for you, your agent needs to understand how you think, talk, and organize. Not through a questionnaire — through analysis of how you've actually been using AI tools.
 
-THE ONBOARDING PROCESS
+WHAT HAPPENS DURING ONBOARDING
 
-On first session, the agent reads everything available about how you've interacted with AI tools so far. Sources vary by platform but typically include:
+When you first set this up, your agent reads through whatever it can access about your existing interactions:
 
-  Prior conversation history and chat logs
-  Project-level memory and notes
-  Existing instruction files (CLAUDE.md, GEMINI.md, cursor rules, etc.)
-  Git commit messages and PR descriptions
-  README files and documentation you've written
-  Any communication style guides or writing samples you point to
+  Your prior conversations and chat history
+  Any memory or notes the tool has stored about you
+  Existing instruction files you've already written
+  Your git commit messages and PR descriptions
+  READMEs and docs you've authored
+  Any writing samples or style guides you point it to
 
-The agent scans these for patterns — not content, but behavior. How you give instructions. How you respond to questions. What makes you correct an agent. What makes you disengage.
+It's looking for patterns in how you behave — not what you talked about, but how you communicate.
 
-WHAT THE ANALYSIS PRODUCES
+WHAT IT'S LOOKING FOR
 
-A communication profile. This captures:
+  How you give instructions: precise specs or broad intent? Do you iterate or expect first-pass accuracy?
+  How you give feedback: do you explain why something's wrong or just redirect? What triggers frustration?
+  How you think: lists, narratives, diagrams, compressed fragments? How much explanation do you want back?
+  How you organize: by project, by urgency, by energy level, by domain?
+  Your pace: do you batch instructions or stream them? Deep focus or frequent context-switches?
+  Accessibility: ADHD, dyslexia, autism-spectrum, sensory preferences — anything affecting how info should be presented.
+  Your tone: formal, casual, terse, playful, technical — or a blend that shifts by context.
 
-  Instruction style: do you give precise specs or broad intent? Do you iterate or expect first-pass accuracy?
-  Feedback patterns: how do you correct mistakes? Do you explain why or just redirect? What triggers frustration?
-  Cognitive preferences: do you think in lists, narratives, diagrams, or compressed fragments? How much explanation do you want?
-  Organization patterns: how do you naturally group work? By project, by urgency, by energy level, by domain?
-  Pace: do you batch instructions or stream them? Do you context-switch frequently or deep-focus?
-  Accessibility needs: ADHD, dyslexia, autism-spectrum, sensory preferences — anything that affects how information should be presented.
-  Tone: formal, casual, terse, playful, technical, poetic — or some blend that shifts by context.
+THIS ISN'T A PERSONALITY TEST
 
-THE PROFILE IS NOT A PERSONALITY TEST
+It's calibration data. Your agent uses this to adjust everything: response length, structure, vocabulary, detail level, when to ask vs. when to act, how to format output.
 
-It's operational data. The agent uses it to calibrate every response: length, structure, vocabulary, level of detail, when to ask vs. when to act, how to format output. A profile that says "terse, compressed, no preamble, ADHD" produces fundamentally different agent behavior than one that says "detailed, exploratory, likes to think out loud."
+Someone whose profile says "terse, compressed, ADHD, no preamble" gets fundamentally different agent behavior than someone whose profile says "detailed, exploratory, likes to think out loud."
 
-WHERE THE PROFILE LIVES
+WHERE IT GOES
 
-The communication profile gets written into the global AGENTS.md under an interaction style section. This makes it available to every agent on every platform — they all read the same file and calibrate the same way.
+The agent writes your communication profile into the interaction style section of your global AGENTS.md. Every agent on every platform reads it and calibrates the same way. No more re-training each tool separately.
 
-Platform-specific memory systems can cache the profile for faster access, but the canonical version is always in the AGENTS.md chain. If memory drifts from the file, the file wins (see 06-memory-alignment.txt).
+If a tool has its own memory system, it can cache the profile for speed — but the file is always the authority (see 06-memory-alignment.txt).
 
-ITERATIVE REFINEMENT
+IT GETS BETTER OVER TIME
 
-The initial profile is a first draft. It improves through use:
+The first profile is a draft. It refines itself:
 
-  When the user corrects agent behavior, the agent updates the profile to reflect the correction.
-  When a pattern emerges over multiple sessions (user consistently shortens long responses, user always reformats lists into prose, user ignores certain types of output), the agent notes it.
-  The user can directly edit the profile at any time — it's just a section in a text file.
+  When you correct your agent's behavior, it updates the profile
+  When patterns emerge across sessions (you consistently shorten long responses, you reformat lists into prose, you skip certain types of output), the agent notes them
+  You can edit the profile directly any time — it's just a section in a text file
 
-The goal is convergence: after a few sessions, the agent's default behavior should match the user's preferences closely enough that corrections become rare.
+After a few sessions, corrections should become rare. The agent just works the way you work.
 
-SELF-ORGANIZATION ANALYSIS
+YOUR ORGANIZATION STYLE TOO
 
-Beyond communication, the agent analyzes how the user organizes their work:
+Beyond communication, the agent also picks up on how you organize:
 
-  How they name things (files, branches, variables, projects)
-  How they structure repos and directories
-  How they track tasks (formal systems, scattered notes, mental model only)
-  How they prioritize (deadline-driven, energy-driven, interest-driven, urgency-driven)
-  How they handle interruptions and context switches
-  How they define "done"
+  How you name things (files, branches, variables, projects)
+  How you structure directories
+  How you track tasks (formal system, scattered notes, or just your head)
+  How you prioritize (deadlines, energy, interest, urgency)
+  How you handle interruptions
+  What "done" means to you
 
-This feeds into the session protocol configuration. An operator who tracks tasks in a formal system gets different session-end behavior than one who keeps everything in their head.
+This shapes how the agent behaves during and after sessions — what it reports, what it tracks, what it leaves alone.
 
-BOOTSTRAPPING WITHOUT HISTORY
+IF THERE'S NO HISTORY TO ANALYZE
 
-If there's no prior conversation history to analyze, the agent builds the profile through the first few interactions. It pays attention to:
-
-  How the first instruction is phrased (length, specificity, tone)
-  How the user responds to the agent's first output (what they correct, what they accept)
-  Whether the user adds context proactively or expects the agent to discover it
-
-Within 2-3 exchanges, there's enough signal to draft an initial profile. The agent writes it immediately rather than waiting for a "complete" picture.
+No problem. The agent builds your profile from your first few interactions. It watches how you phrase your first instruction, how you respond to its first output, and whether you add context or expect discovery. Within 2-3 exchanges there's enough signal for an initial profile. It writes it immediately and refines from there.

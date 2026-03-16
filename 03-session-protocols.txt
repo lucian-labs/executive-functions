@@ -1,35 +1,37 @@
 SESSION PROTOCOLS
 
-Every agent session has a start, middle, and end. Defining each phase eliminates cold starts, lost context, and orphaned work.
+Every time you open an AI agent, it starts cold. These protocols fix that by defining what happens at the start, during, and end of each session.
 
-SESSION START
+WHEN A SESSION STARTS
 
-  1. Read the instruction hierarchy: Global AGENTS.md → Machine AGENTS.md → Repo AGENTS.md → Tool config
-  2. Check for queued work in the coordination system
-  3. Assess working state: git status, check for in-progress work from prior sessions
-  4. Verify local services the project depends on
-  5. Register with the coordination system (if available)
+Put a checklist in your global AGENTS.md that your agent runs on startup:
 
-By the time the first instruction arrives, the agent has full context.
+  1. Read the instruction chain: global AGENTS.md → machine AGENTS.md → repo AGENTS.md → tool config
+  2. Check for any queued work (if you use a queue system — see 05)
+  3. Look at git status and check for in-progress work from last time
+  4. Verify any local services the project needs are running
 
-Registration provides: a named queue for work orders, session tracking for handoff, visibility into what's running where. If coordination system is unreachable, work normally. Registration enhances but never gates.
+By the time you give your first instruction, the agent already has full context. No re-explaining.
 
-DURING SESSION
+If you run a coordination system (dashboard, API, shared queue), the agent can register on startup to announce itself and pick up pending work. This is optional — the system works fine without it.
 
-Operating model is executive instruction mode (see 07-executive-instruction-mode.txt). Key rules: execute immediately, surface only irreversible/high-stakes decisions, update context files as you discover information, log significant events.
+DURING A SESSION
 
-Concurrent sessions: multiple agents can run on the same machine or repo simultaneously. Ignore working tree changes outside your scope. Don't stop because unrelated files changed. Never revert changes you didn't create. Flag only direct conflicts in the same files and lines.
+Your agent should:
 
-SESSION END
+  Execute your instructions immediately without asking unnecessary questions
+  Only pause for decisions that are irreversible or high-stakes
+  Update context files when it discovers new information about your setup
+  Log significant events (features shipped, decisions made)
 
-  1. Report completed work to coordination system
-  2. Update context files with new patterns, constraints, file locations
-  3. Provide compressed summary for handoff
-  4. Send status notification (if configured)
-  5. If ending due to context limits, include re-registration instructions so next session resumes seamlessly
+If you run multiple agents at once (different tools, different terminals), they should stay in their lane: ignore changes they didn't make, don't revert someone else's work, only flag conflicts if they hit the exact same files.
 
-KNOWLEDGE PROPAGATION
+WHEN A SESSION ENDS
 
-Direction: Conversation → Agent files → Coordination system
+Whether you close the chat, the agent hits its context limit, or the work is done:
 
-Knowledge flows outward. Don't hoard context in chat — push it into files and systems where future sessions access it. A session that discovers something important but only mentions it in conversation has failed at self-maintenance.
+  1. Update your context files with anything new the agent learned
+  2. Write a short summary of what happened (for handoff to the next session)
+  3. If ending mid-task, include enough context that the next session can pick up where this one left off
+
+The key principle: knowledge flows outward. Anything important the agent learned should end up in a file, not trapped in a chat transcript you'll never read again.

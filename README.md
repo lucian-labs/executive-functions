@@ -1,24 +1,30 @@
 # Executive Functions
 
+## Wait, What's the Problem?
+
+You're using AI coding tools — Claude, Cursor, Copilot, Codex, Gemini, whatever. Maybe one of them, maybe a few. And it's great, until it isn't.
+
+Every time you start a new chat, the AI forgets everything. You explain your project again. You correct the same habits again. You tell it *again* not to ask you five questions before doing anything. If you use multiple tools, they each have their own idea of what's going on — and none of them talk to each other.
+
+It's like hiring a brilliant assistant who gets amnesia every morning and has to be re-trained from scratch. Every. Single. Day.
+
+Now multiply that by every project you're working on, every machine you use, and every tool in your stack. The cognitive overhead of *managing your AI tools* starts to outweigh the help they provide. For neurodivergent brains especially — ADHD, autism-spectrum, dyslexia — this is not a minor annoyance. It's a showstopper. The constant re-explaining, the unsolicited suggestions, the "would you like me to also..." menus — these aren't helpful. They're focus poison.
+
+**Executive Functions fixes this.** It's a set of text files that teach your AI agents how to find their instructions, remember what they've learned, coordinate with each other, and match the way *you* actually think and communicate. No code to install. No app to configure. Just conventions that any AI tool can read.
+
 ## Start Here
 
 Clone or download this repo anywhere. Then tell your AI agent:
 
 > "Read everything in this repo and explain what it is back to me in my own words."
 
-That's it. The agent will read the system, profile how you communicate, and set itself up. No install steps, no configuration, no terminal commands.
+That's it. The agent reads the system, learns how you communicate, and sets itself up. No install steps, no configuration, no terminal commands.
 
 ---
 
-A convention-over-configuration system for managing AI agents across machines, projects, and tools. Built for ADHD and neurodivergent operators who need their agents to carry cognitive load — not add to it.
+## What It Does
 
-No frameworks. No scripts. No dependencies. Just text files and naming conventions.
-
-## What This Solves
-
-AI agents (Claude Code, Cursor, Codex, Gemini CLI) are powerful individually but chaotic together. They forget context between sessions, contradict each other, and require constant re-instruction. They default to verbose, consultative interaction styles that actively harm focus for neurodivergent users.
-
-Executive Functions gives them a shared nervous system:
+Executive Functions gives your AI agents a shared nervous system:
 
 - **One source of truth** that all agents read on startup
 - **Hierarchical instruction resolution** so machine-level, project-level, and tool-level guidance coexist without conflict

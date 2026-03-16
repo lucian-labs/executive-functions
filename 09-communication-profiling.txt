@@ -1,6 +1,8 @@
 COMMUNICATION PROFILING
 
-Before the system can work well for you, your agent needs to understand how you think, talk, and organize. You can tell it directly, let it help you figure it out through conversation, or — if your tool supports it — have it analyze your existing interactions.
+This is the core of Executive Functions. Everything else in the system — the file chain, the session protocols, the memory alignment — exists to carry and preserve what you build here: a model of how you work.
+
+Your agent needs to understand how you think, talk, and organize. You can tell it directly, let it help you figure it out through conversation, or — if your tool supports it — have it analyze your existing interactions.
 
 HOW TO BUILD YOUR PROFILE
 

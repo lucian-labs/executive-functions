@@ -1,6 +1,6 @@
 INSTRUCTION HIERARCHY
 
-Your agents need to know where to find their instructions — and what to do when two files disagree.
+Once you've built your operator profile (see 09-communication-profiling.txt), you need somewhere to put it — and a way to make sure every agent finds it. That's what the instruction hierarchy does. It's the transport layer for your operator model.
 
 You're going to create a chain of text files. Each level overrides the one below it:
 

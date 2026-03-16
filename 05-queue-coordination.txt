@@ -1,6 +1,6 @@
 QUEUE COORDINATION
 
-This chapter is optional. If you're running one agent on one machine, skip it. Come back when you need multiple agents to hand work to each other.
+Optional. Skip this if you're running one agent on one machine. Queues are part of the persistence infrastructure — they let multiple agents share your operator model and pass work between each other. Come back when you need it.
 
 WHAT QUEUES DO
 

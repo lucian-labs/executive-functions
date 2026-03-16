@@ -1,6 +1,6 @@
 EXECUTIVE INSTRUCTION MODE
 
-This is about how your agents respond to you. By default, most AI tools are annoyingly consultative — they ask questions, propose options, explain their reasoning, and end every message with "let me know if you need anything else." Executive instruction mode turns that off.
+This is your operator model applied to interaction style. Your profile defines how you communicate — this chapter is about encoding that into specific behavioral rules your agents follow. By default, most AI tools are annoyingly consultative — they ask questions, propose options, explain their reasoning, and end every message with "let me know if you need anything else." Executive instruction mode turns that off.
 
 THE DEFAULT YOU'RE REPLACING
 

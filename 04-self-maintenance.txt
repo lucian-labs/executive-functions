@@ -1,6 +1,6 @@
 AGENT SELF-MAINTENANCE
 
-Here's the trick that makes this system get better over time instead of decaying: your agents maintain their own instruction files.
+Your operator model isn't static — it gets sharper every session. The trick: your agents are responsible for updating the files that define your model. When they learn something new about your workflow, they write it back. This is what makes the system compound instead of decay.
 
 THE PROBLEM YOU'VE PROBABLY HIT
 

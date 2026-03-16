@@ -1,6 +1,6 @@
 SESSION PROTOCOLS
 
-Every time you open an AI agent, it starts cold. These protocols fix that by defining what happens at the start, during, and end of each session.
+Your operator model is only useful if agents actually load it. Every time you open an AI tool, it starts cold — session protocols ensure the first thing it does is read your model and apply it. They also define how agents keep the model alive across sessions.
 
 WHEN A SESSION STARTS
 

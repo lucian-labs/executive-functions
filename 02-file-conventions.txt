@@ -1,6 +1,6 @@
 FILE CONVENTIONS
 
-The whole system is a handful of files with predictable names. Here's what to create and where to put it.
+Your operator model needs to live somewhere durable that every agent can find. This chapter covers the specific files you'll create — where they go, what goes in each one, and how to keep them clean. These files are the storage layer for your model.
 
 THE FILES YOU'LL CREATE
 

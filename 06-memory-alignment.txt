@@ -1,6 +1,6 @@
 MEMORY ALIGNMENT
 
-Some AI tools remember things between sessions — Claude has auto-memory, Cursor has a notepad, Codex has memory. This is useful but it creates a problem: the memory can drift away from what your files actually say.
+Your operator model lives in files. Some AI tools also store their own memories between sessions — Claude has auto-memory, Cursor has a notepad, Codex has memory. This creates a drift risk: the tool's memory can diverge from your actual model. Memory alignment keeps your files as the single source of truth.
 
 THE PROBLEM
 

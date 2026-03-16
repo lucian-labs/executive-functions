@@ -1,6 +1,6 @@
 MULTI-MACHINE SCALING
 
-If you only use one computer, this chapter is optional. Come back when you add a second machine.
+Optional. Your operator model works on one machine by default. This chapter covers how to carry it across multiple machines so every agent, everywhere, follows the same model.
 
 THE SETUP
 

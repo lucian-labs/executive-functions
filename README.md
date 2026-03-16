@@ -10,7 +10,7 @@ It's like hiring a brilliant assistant who gets amnesia every morning and has to
 
 Now multiply that by every project you're working on, every machine you use, and every tool in your stack. The cognitive overhead of *managing your AI tools* starts to outweigh the help they provide. For neurodivergent brains especially — ADHD, autism-spectrum, dyslexia — this is not a minor annoyance. It's a showstopper. The constant re-explaining, the unsolicited suggestions, the "would you like me to also..." menus — these aren't helpful. They're focus poison.
 
-**Executive Functions fixes this.** It's a set of text files that teach your AI agents how to find their instructions, remember what they've learned, coordinate with each other, and match the way *you* actually think and communicate. No code to install. No app to configure. Just conventions that any AI tool can read.
+**Executive Functions fixes this.** It translates how you work — your communication style, your decision-making patterns, how you give instructions, what derails you, what you need from an assistant — into a portable model that any AI tool can read. You build the model once. Every agent follows it. No more re-training.
 
 ## Start Here
 
@@ -24,40 +24,44 @@ Your agent will walk you through the chapters and help you create your first fil
 
 ## What You Get
 
-- **Your agents stop forgetting.** You write your preferences and rules once, in text files. Every agent reads them on startup. No more re-explaining.
-- **Your agents match how you communicate.** You describe your preferences — or optionally let the agent help you figure them out — and it calibrates to your style.
-- **Your agents stop asking unnecessary questions.** You define how you want to be interacted with. Terse? Detailed? No suggestions? No closing offers? You set it once and it sticks.
-- **Your agents maintain their own context.** When an agent discovers something new during a session, it updates its own instruction files. Next session starts smarter.
+- **Your agents know how you work.** You define your communication style, decision posture, pacing, correction patterns, and accessibility needs. Every agent reads this profile and calibrates to it.
+- **Your agents stop acting like strangers.** Instead of defaulting to generic chatbot behavior, they match *your* way of working — from the first message of every session.
+- **Your agents stop forgetting.** Your operator model lives in text files that persist across sessions, tools, and machines. No more re-explaining.
+- **Your agents maintain the model themselves.** When you correct an agent or it discovers something new about your workflow, it updates the files. The model gets sharper over time.
 - **Your agents stay in sync.** If a tool's memory drifts from your files, it self-corrects on startup. Your files are always the authority.
 - **Your agents can hand work to each other.** Optional queue system for passing tasks between tools and machines.
+
+## The Core Idea
+
+Executive Functions is an operator-modeling system. The primary payload is *you* — how you think, communicate, prioritize, delegate, and correct. Everything else in the repo exists to carry that model and keep it consistent.
+
+The system has three layers:
+
+**1. Your operator model** — This is the core. A profile of how you work: communication preferences, interaction style, cognitive patterns, how you organize, what you need from an assistant. You build this first. It's the thing every agent reads to stop being generic. → [Building your operator profile](./09-communication-profiling.txt)
+
+**2. A portable instruction surface** — Your model gets stored in a chain of text files (AGENTS.md) that any AI tool can read. Global rules in one file, machine-specific context in another, project details in a third. The files are the transport layer — they carry your model across tools, repos, and machines.
+
+**3. Persistence infrastructure** — Session protocols, self-maintenance, memory alignment, and optional queues keep the model alive and accurate over time. Agents update their own files, correct their own memory, and hand work to each other. This is the machinery that prevents decay.
 
 ## Why Neurodivergent-First
 
 Most AI tools default to a consultative mode: propose options, ask clarifying questions, offer suggestions, explain reasoning at length. For neurotypical users this feels helpful. For ADHD and neurodivergent brains it's a focus-destroying tax.
 
-Executive Functions flips the default. You tell your agents exactly how to interact with you — and they do it, every session, without being reminded. The system is designed around how neurodivergent brains actually work: high-level vision with delegation of detail, not micromanagement of every step.
+Executive Functions flips the default. Your operator model encodes exactly how you want to be interacted with — and agents follow it without being reminded. The system is designed around how neurodivergent brains actually work: high-level vision with delegation of detail, not micromanagement of every step.
 
-## How It Works
+## The Chapters
 
-You're going to create a small chain of text files. That's the whole system.
+Start with your operator profile. Everything else serves it.
 
-**Step 1:** Create one master file (AGENTS.md) in a repo. This holds your rules, preferences, and communication style. Every agent reads it.
-
-**Step 2:** Create a pointer file (~/ AGENTS.md) on your machine that says "the master file is over here." This also describes your local setup — what OS you're on, what tools are installed, where your repos live.
-
-**Step 3:** Optionally, add project-specific files to individual repos for build commands, architecture notes, and project-level rules.
-
-That's the core. The chapters below walk you through each piece:
-
-→ [Setting up the file chain](./01-instruction-hierarchy.txt)
-→ [What files to create and where](./02-file-conventions.txt)
-→ [What your agent does at start/end of each session](./03-session-protocols.txt)
-→ [How agents keep their own files up to date](./04-self-maintenance.txt)
-→ [Passing work between agents (optional)](./05-queue-coordination.txt)
-→ [Keeping agent memory in sync with your files](./06-memory-alignment.txt)
-→ [Configuring how agents respond to you](./07-executive-instruction-mode.txt)
-→ [Working across multiple machines (optional)](./08-multi-machine.txt)
-→ [Getting your agent to learn your communication style](./09-communication-profiling.txt)
+→ [Building your operator profile](./09-communication-profiling.txt) — **start here**
+→ [Setting up the file chain](./01-instruction-hierarchy.txt) — how to store and distribute your model
+→ [What files to create and where](./02-file-conventions.txt) — the transport layer
+→ [What your agent does at start/end of each session](./03-session-protocols.txt) — keeping the model active
+→ [How agents keep their own files up to date](./04-self-maintenance.txt) — the model improves over time
+→ [Keeping agent memory in sync with your files](./06-memory-alignment.txt) — preventing drift
+→ [Configuring how agents respond to you](./07-executive-instruction-mode.txt) — applying the model to interaction style
+→ [Passing work between agents (optional)](./05-queue-coordination.txt) — multi-agent coordination
+→ [Working across multiple machines (optional)](./08-multi-machine.txt) — carrying the model everywhere
 
 ## Who This Is For
 

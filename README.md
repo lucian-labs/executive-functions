@@ -14,11 +14,11 @@ Now multiply that by every project you're working on, every machine you use, and
 
 ## Start Here
 
-Clone or download this repo anywhere. Then tell your AI agent:
+Open any AI agent you use and say:
 
-> "Read everything in this repo and explain what it is back to me in my own words."
+> "Tell me what https://github.com/ELI7VH/executive-functions is about"
 
-That's it. The agent reads the system, learns how you communicate, and sets itself up. No install steps, no configuration, no terminal commands.
+That's it. The agent reads the system, learns how you communicate, and sets itself up.
 
 ---
 

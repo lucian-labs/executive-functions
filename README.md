@@ -16,7 +16,7 @@ Now multiply that by every project you're working on, every machine you use, and
 
 Open any AI agent you use and say:
 
-> "Tell me what https://github.com/ELI7VH/executive-functions is about"
+> "Tell me what https://github.com/lucian-labs/executive-functions is about"
 
 That's it. The agent reads the system, learns how you communicate, and sets itself up.
 

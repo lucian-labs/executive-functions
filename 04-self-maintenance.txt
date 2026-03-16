@@ -1,0 +1,38 @@
+AGENT SELF-MAINTENANCE
+
+Agents are responsible for maintaining the system that instructs them.
+
+THE PROBLEM
+
+Traditional automation is static: write instructions, tool follows them, instructions decay as reality drifts. With AI agents, stale context means confident wrong answers.
+
+THE SOLUTION
+
+Agents update their own instruction files. When an agent discovers something during a session — a file location, a build quirk, a naming convention — it writes that knowledge into the appropriate context file. Next session inherits it automatically.
+
+Self-improving loop: Session N discovers pattern → writes to agent file → Session N+1 starts smarter → discovers more → writes back → compounds.
+
+WHAT AGENTS UPDATE
+
+  Repo agent files: changed build commands, new file locations, architecture constraints, evolved deploy procedures, test patterns.
+  Machine context: new services, path changes, installed tools, port assignments.
+  Coordination system: task status, shipped features, significant decisions.
+
+RULES
+
+  1. Propagate upward. Knowledge flows from conversation → agent files → coordination system. Don't trap knowledge in chat history.
+  2. Scope your writes. Only update files relevant to your domain. An infra session shouldn't edit creative tool docs.
+  3. Append, don't overwrite. Add new information. Don't remove existing entries unless provably wrong.
+  4. Machine-specific stays local. Ports, absolute paths, service URLs go in machine context, never in committed repo files.
+  5. Be quiet about it. Self-maintenance is background work. Don't narrate or ask permission. Just do it.
+
+BOOTSTRAPPING
+
+On a new machine or project, no context files exist. The first agent session creates them by discovery: scanning filesystem, checking tools, reading READMEs. After bootstrap, every subsequent session is faster. Context quality compounds over time.
+
+ANTI-PATTERNS
+
+  Context hoarding: discovering important info but only mentioning it in conversation. Future sessions can't access chat history.
+  Over-maintenance: updating files on every trivial observation. Context files store durable, reusable knowledge, not session minutiae.
+  Cross-contamination: writing project-specific rules into global files, or machine paths into repo files.
+  Deletionism: removing entries that seem stale. If unsure whether still relevant, leave it. Slightly noisy context beats missing context.

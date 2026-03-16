@@ -1,0 +1,50 @@
+QUEUE COORDINATION
+
+When multiple agents or sessions need to pass work between each other, queues provide the mechanism.
+
+THE MODEL
+
+Each agent registers to a named queue. Messages pushed to that queue are work orders. The agent executes immediately or converts to a tracked task if it can't complete in the current session.
+
+Flow: Operator or system → pushes message to queue → agent picks up → executes or creates task → reports result.
+
+MESSAGE TYPES
+
+  feature — implement this
+  bug — fix this
+  todo — gather context and create a tracked task
+
+Queue messages are directives, not suggestions. When a message arrives, the agent acts.
+
+REGISTRATION
+
+On session start, agent registers with the coordination system. Returns: queue name, streaming/polling endpoint, pending messages, system instructions.
+
+If coordination system is unreachable, skip registration. Queues enhance coordination but never gate it.
+
+QUEUE NAMING
+
+Queues map to scope. Common patterns:
+
+  Per-project: my-app — all work for that project
+  Per-domain: infra, frontend, audio — by category
+  Per-machine: macbook, pi, server — by location
+  Per-role: deploy, review, research — by function
+
+Pick a scheme matching how you divide work. The system doesn't enforce convention.
+
+ESCALATION
+
+When a queue message can't be handled in the current session: create a tracked task with full context, assign to appropriate project/queue, resolve the original message. Never leave stale pending messages.
+
+IMPLEMENTATION OPTIONS
+
+  Minimal (file-based): a queue/ directory with files per message. Agents check on startup. Completed messages move to queue/done/.
+  Moderate (API-based): lightweight server with REST push/poll, SSE streaming, database persistence.
+  Full (dashboard + API): web dashboard, REST CRUD, notifications via Telegram/Slack, session tracking and handoff.
+
+Patterns are identical regardless of implementation. Start minimal, scale up for visibility or multi-machine coordination.
+
+WITHOUT QUEUES
+
+Single agent on single machine can skip queues entirely. The instruction hierarchy and session protocols work standalone. Queues are the multi-agent scaling layer, not a prerequisite.

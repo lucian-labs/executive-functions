@@ -1,0 +1,35 @@
+SESSION PROTOCOLS
+
+Every agent session has a start, middle, and end. Defining each phase eliminates cold starts, lost context, and orphaned work.
+
+SESSION START
+
+  1. Read the instruction hierarchy: Global AGENTS.md → Machine AGENTS.md → Repo AGENTS.md → Tool config
+  2. Check for queued work in the coordination system
+  3. Assess working state: git status, check for in-progress work from prior sessions
+  4. Verify local services the project depends on
+  5. Register with the coordination system (if available)
+
+By the time the first instruction arrives, the agent has full context.
+
+Registration provides: a named queue for work orders, session tracking for handoff, visibility into what's running where. If coordination system is unreachable, work normally. Registration enhances but never gates.
+
+DURING SESSION
+
+Operating model is executive instruction mode (see 07-executive-instruction-mode.txt). Key rules: execute immediately, surface only irreversible/high-stakes decisions, update context files as you discover information, log significant events.
+
+Concurrent sessions: multiple agents can run on the same machine or repo simultaneously. Ignore working tree changes outside your scope. Don't stop because unrelated files changed. Never revert changes you didn't create. Flag only direct conflicts in the same files and lines.
+
+SESSION END
+
+  1. Report completed work to coordination system
+  2. Update context files with new patterns, constraints, file locations
+  3. Provide compressed summary for handoff
+  4. Send status notification (if configured)
+  5. If ending due to context limits, include re-registration instructions so next session resumes seamlessly
+
+KNOWLEDGE PROPAGATION
+
+Direction: Conversation → Agent files → Coordination system
+
+Knowledge flows outward. Don't hoard context in chat — push it into files and systems where future sessions access it. A session that discovers something important but only mentions it in conversation has failed at self-maintenance.

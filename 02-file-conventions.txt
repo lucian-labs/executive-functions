@@ -1,0 +1,36 @@
+FILE CONVENTIONS
+
+The system runs on a small set of files with predictable names and locations.
+
+CORE FILES
+
+  AGENTS.md at canonical repo root — global rules, conventions, protocols
+  AGENTS.md at ~/ — machine entry point, points to canonical
+  AGENTS.md at any repo root — project-specific agent guidance
+  CLAUDE.md at any repo root — Claude Code instructions
+  GEMINI.md at any repo root — Gemini instructions
+  .github/copilot-instructions.md — Copilot instructions
+  .cursor/rules/*.mdc — Cursor rules
+  agents.txt at any repo root — discovery pointer (single line path)
+
+WHAT GOES WHERE
+
+  Global AGENTS.md: working rules, interaction style, session protocols, coordination infra, commit conventions, product direction.
+  Machine AGENTS.md: pointer to canonical, OS/shell/runtimes, absolute paths, running services, hardware.
+  Repo AGENTS.md: build/test/deploy commands, architecture constraints, file layout, project-specific rules.
+  Tool configs: tool quirks, formatting overrides, tool-only concerns.
+
+SEPARATION PRINCIPLE
+
+  Rules and conventions live in AGENTS.md files.
+  Machine-specific facts live in machine AGENTS.md or tool configs.
+  Tasks and tracking live in the coordination system.
+  Ideas and notes live in the knowledge base.
+
+Never mix these. An AGENTS.md with task lists will rot. A task system with coding conventions will be ignored.
+
+CREATING FROM SCRATCH
+
+Agents can bootstrap their own context. On a new machine: detect OS, shell, hostname; scan for repos; check runtimes; note services; write to ~/AGENTS.md. On a new repo: read global AGENTS.md; detect build system; note test/entry/deploy targets; write repo AGENTS.md; create agents.txt.
+
+The first agent session generates initial context. Subsequent sessions refine it.

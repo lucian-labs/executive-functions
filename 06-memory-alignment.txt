@@ -1,0 +1,46 @@
+MEMORY ALIGNMENT
+
+Some AI agents have persistent memory (Claude auto-memory, Cursor notepad, Codex memory). This memory is powerful but dangerous if it drifts from canonical instructions.
+
+THE RULE
+
+Agent memory is a cache of canonical files. Not an independent authority. If memory contradicts an AGENTS.md file, the file wins — always, silently, without discussion.
+
+WHY THIS MATTERS
+
+Memory drift is subtle and compounding. An agent misremembers a convention from three sessions ago, applies it confidently, you correct it, it updates memory, two sessions later a different detail drifts. Over time, behavior diverges from what you defined — and you can't see it because memory is opaque.
+
+ALIGNMENT PROTOCOL
+
+On session start:
+  1. Read the instruction hierarchy (AGENTS.md chain)
+  2. Compare stored memories against canonical files
+  3. If memory contradicts a canonical file, silently overwrite the memory
+  4. No asking. No narrating the correction. Just fix and move on.
+
+On session end:
+  1. If the session produced canonical knowledge, write it to the appropriate file — not just to memory
+  2. Memory should contain only: user preferences, machine-specific context, pointers to canonical files
+  3. Memory should never contain: rules, conventions, process definitions, API specs
+
+WHAT MEMORY IS FOR
+
+  Who the user is — role, communication preferences, expertise level, accessibility needs
+  Machine-specific facts — paths, ports, hostnames not in committed files
+  Pointers — where canonical info lives
+  Unupstreamed feedback — user corrections not yet written into canonical files
+
+WHAT MEMORY IS NOT FOR
+
+  Rules or conventions (live in AGENTS.md)
+  Process definitions (live in AGENTS.md or process files)
+  API specs or tool instructions (live at their source)
+  Task lists or project status (live in coordination system)
+
+PRACTICAL EFFECT
+
+Define memory alignment in your global AGENTS.md. Every agent that reads it self-corrects at session start. You maintain one set of files, memory stays in sync automatically. Agents do the alignment work — no manual auditing.
+
+AGENTS WITHOUT PERSISTENT MEMORY
+
+Some tools start fresh every session. For these, the instruction hierarchy alone provides all context. Memory alignment only matters for agents that carry state between sessions.

@@ -1,0 +1,45 @@
+MULTI-MACHINE SCALING
+
+Executive Functions works on a single machine by default. Across multiple machines (laptop, desktop, server, Pi), a few additional patterns maintain coherence.
+
+GLOBAL CANONICAL FILE
+
+The cross-machine source of truth is a single AGENTS.md in a repo every machine can access via git. Each machine's ~/AGENTS.md points to it. Updates propagate on next pull or agent session.
+
+  Canonical Repo (AGENTS.md)
+    Laptop ~/AGENTS.md → points here
+    Desktop ~/AGENTS.md → points here
+    Server ~/AGENTS.md → points here
+    Pi ~/AGENTS.md → points here
+
+MACHINE-SPECIFIC CONTEXT
+
+Each machine maintains local context: OS, installed runtimes, absolute paths, running services, connected hardware, local-only projects. Machine context stays local — never committed to the canonical repo. Canonical repo has universal rules; machines have local facts.
+
+CROSS-MACHINE COORDINATION
+
+Agents on different machines coordinate through the queue system. A message pushed to a queue is picked up by whichever machine's agent is listening.
+
+Common patterns:
+  Deploy chain: laptop pushes code → server deploys
+  Build delegation: laptop queues heavy build → desktop (more powerful) executes
+  Hardware access: any agent queues MIDI command → Pi (connected to hardware) sends it
+
+THE STASH
+
+For transferring files between machines without git commits: a simple upload/download API endpoint. Push from one machine, pull on another. Useful for build artifacts, screenshots, config files during setup, anything too large or sensitive for git.
+
+BOOTSTRAP: NEW MACHINE
+
+  1. Clone the canonical repo
+  2. Create ~/AGENTS.md pointing to canonical file
+  3. Run first agent session — discovers machine, creates local context
+  4. (Optional) Configure coordination system credentials
+
+The agent bootstraps its own environment knowledge on first run.
+
+SYNC
+
+Machine context doesn't auto-sync (by design — it's local). The coordination system bridges machines: agents register and report state, any agent can query to see what's running where.
+
+Instruction hierarchy, session protocols, and memory alignment work identically across machines. Only difference is which local facts are available.

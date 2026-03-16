@@ -40,13 +40,13 @@ ADDING A NEW MACHINE
 
   1. Clone your canonical repo
   2. Create ~/AGENTS.md pointing to the global file
-  3. Start an agent session — it discovers the machine and generates local context
+  3. Fill in the local details: OS, installed tools, repo locations, running services
   4. (Optional) Set up credentials for your coordination system if you use one
 
-The agent figures out the environment on first run. You review and refine the generated context.
+You can ask your agent to help draft the machine file — "Help me create a machine AGENTS.md for this computer" — and fill in what it can't determine on its own.
 
 WHY LOCAL CONTEXT DOESN'T SYNC
 
-By design. Each machine's facts are local because they're different on every machine. If you want machines to know about each other, that's what the coordination system (queues, dashboard) is for — agents register and report their state.
+By design. Each machine's facts are local because they're different on every machine. If you want machines to know about each other, that's what the coordination system (queues, dashboard) is for.
 
 The instruction hierarchy, session protocols, and memory alignment work identically everywhere. The only thing that changes per machine is the local facts.

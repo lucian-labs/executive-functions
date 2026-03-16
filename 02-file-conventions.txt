@@ -32,4 +32,6 @@ Don't mix these. An AGENTS.md stuffed with task lists will rot. A task tracker s
 
 YOU DON'T HAVE TO WRITE THEM ALL YOURSELF
 
-When you start your first agent session after creating the global file, the agent can discover your machine and generate the machine AGENTS.md for you. Same for project files — point the agent at a repo and it'll scan the build system, test setup, and directory structure, then write a draft AGENTS.md. You review and refine from there.
+Your agent can help you draft these files. Ask it: "Help me create an AGENTS.md for this machine" or "Help me write an AGENTS.md for this project." You provide the details — what OS you're on, what the project does, how it builds — and the agent structures it into the right format. You review and refine from there.
+
+Some tools can also inspect your environment (installed runtimes, directory structure, build configs) to suggest content. Whether that works depends on your tool's capabilities and permissions — it's a shortcut, not something the system depends on.

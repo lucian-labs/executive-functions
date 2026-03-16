@@ -16,16 +16,16 @@ Now multiply that by every project you're working on, every machine you use, and
 
 Open whatever AI tool you already use and say:
 
-> "Read https://github.com/lucian-labs/executive-functions and help me set it up for my workflow."
+> "Read https://github.com/lucian-labs/executive-functions and help me understand how to set it up."
 
-The AI does the rest.
+Your agent will walk you through the chapters and help you create your first files. You'll make the decisions — the repo gives you the model.
 
 ---
 
 ## What You Get
 
 - **Your agents stop forgetting.** You write your preferences and rules once, in text files. Every agent reads them on startup. No more re-explaining.
-- **Your agents learn how you communicate.** On setup, the agent analyzes your existing chats and writing to build a profile of how you think, talk, and organize — then calibrates itself to match.
+- **Your agents match how you communicate.** You describe your preferences — or optionally let the agent help you figure them out — and it calibrates to your style.
 - **Your agents stop asking unnecessary questions.** You define how you want to be interacted with. Terse? Detailed? No suggestions? No closing offers? You set it once and it sticks.
 - **Your agents maintain their own context.** When an agent discovers something new during a session, it updates its own instruction files. Next session starts smarter.
 - **Your agents stay in sync.** If a tool's memory drifts from your files, it self-corrects on startup. Your files are always the authority.

@@ -1,55 +1,58 @@
 COMMUNICATION PROFILING
 
-Before the system can work well for you, your agent needs to understand how you think, talk, and organize. Not through a questionnaire — through analysis of how you've actually been using AI tools.
+Before the system can work well for you, your agent needs to understand how you think, talk, and organize. You can tell it directly, let it help you figure it out through conversation, or — if your tool supports it — have it analyze your existing interactions.
 
-WHAT HAPPENS DURING ONBOARDING
+HOW TO BUILD YOUR PROFILE
 
-When you first set this up, your agent reads through whatever it can access about your existing interactions:
+There are three approaches. Pick whichever fits:
 
-  Your prior conversations and chat history
-  Any memory or notes the tool has stored about you
-  Existing instruction files you've already written
-  Your git commit messages and PR descriptions
-  READMEs and docs you've authored
-  Any writing samples or style guides you point it to
+  1. Write it yourself. You already know how you like to work. Open your AGENTS.md and write an interaction style section: how verbose you want responses, whether you want suggestions or not, how you give instructions, what derails you.
 
-It's looking for patterns in how you behave — not what you talked about, but how you communicate.
+  2. Co-create it with your agent. Start a conversation: "Help me figure out my communication preferences for this system." The agent asks you questions, you answer, and together you draft the profile. This is the recommended path if you're not sure what to write.
 
-WHAT IT'S LOOKING FOR
+  3. Opt in to analysis. If your tool has access to your prior conversations and you're comfortable with it, you can ask the agent to scan your history for patterns. This is optional and only uses data already on your machine.
+
+WHAT THE PROFILE CAPTURES
 
   How you give instructions: precise specs or broad intent? Do you iterate or expect first-pass accuracy?
-  How you give feedback: do you explain why something's wrong or just redirect? What triggers frustration?
+  How you give feedback: do you explain why something's wrong or just redirect?
   How you think: lists, narratives, diagrams, compressed fragments? How much explanation do you want back?
   How you organize: by project, by urgency, by energy level, by domain?
   Your pace: do you batch instructions or stream them? Deep focus or frequent context-switches?
   Accessibility: ADHD, dyslexia, autism-spectrum, sensory preferences — anything affecting how info should be presented.
   Your tone: formal, casual, terse, playful, technical — or a blend that shifts by context.
 
+You decide what to include. Nothing is extracted or written without your input.
+
 THIS ISN'T A PERSONALITY TEST
 
-It's calibration data. Your agent uses this to adjust everything: response length, structure, vocabulary, detail level, when to ask vs. when to act, how to format output.
+It's calibration data. Your agent uses it to adjust response length, structure, vocabulary, detail level, when to ask vs. when to act, and how to format output.
 
 Someone whose profile says "terse, compressed, ADHD, no preamble" gets fundamentally different agent behavior than someone whose profile says "detailed, exploratory, likes to think out loud."
 
 WHERE IT GOES
 
-The agent writes your communication profile into the interaction style section of your global AGENTS.md. Every agent on every platform reads it and calibrates the same way. No more re-training each tool separately.
+Your communication profile is private by default. Two options for where to store it:
 
-If a tool has its own memory system, it can cache the profile for speed — but the file is always the authority (see 06-memory-alignment.txt).
+  Local only: Keep it in your machine's ~/AGENTS.md or in your tool's local config. Only agents on this machine see it. Use this if your profile contains personal or sensitive details (accessibility needs, cognitive style, etc.).
+
+  Shared: Put it in the interaction style section of your global AGENTS.md. Every agent on every machine reads it. Use this if you want consistent behavior across all your tools and machines, and the content isn't sensitive.
+
+You can split it — put general preferences (tone, verbosity, no-suggestions) in the shared file, and personal details (accessibility, cognitive patterns) in local config.
 
 IT GETS BETTER OVER TIME
 
-The first profile is a draft. It refines itself:
+The first profile is a draft. It refines through use:
 
-  When you correct your agent's behavior, it updates the profile
-  When patterns emerge across sessions (you consistently shorten long responses, you reformat lists into prose, you skip certain types of output), the agent notes them
-  You can edit the profile directly any time — it's just a section in a text file
+  When you correct your agent's behavior, update the profile to match
+  When you notice patterns in how you work (you consistently shorten long responses, you skip certain types of output), add them
+  You can edit the profile any time — it's just a section in a text file
 
-After a few sessions, corrections should become rare. The agent just works the way you work.
+After a few sessions, corrections should become rare.
 
 YOUR ORGANIZATION STYLE TOO
 
-Beyond communication, the agent also picks up on how you organize:
+Beyond communication, you might also want to capture how you organize:
 
   How you name things (files, branches, variables, projects)
   How you structure directories
@@ -60,6 +63,6 @@ Beyond communication, the agent also picks up on how you organize:
 
 This shapes how the agent behaves during and after sessions — what it reports, what it tracks, what it leaves alone.
 
-IF THERE'S NO HISTORY TO ANALYZE
+STARTING FROM ZERO
 
-No problem. The agent builds your profile from your first few interactions. It watches how you phrase your first instruction, how you respond to its first output, and whether you add context or expect discovery. Within 2-3 exchanges there's enough signal for an initial profile. It writes it immediately and refines from there.
+If you don't know your preferences yet, that's fine. Start with the basics — how verbose do you want responses? Do you want suggestions or not? — and add more as you notice what works and what doesn't. The profile grows with you.
